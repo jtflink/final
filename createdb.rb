@@ -25,10 +25,14 @@ DB.create_table! :users do
 end
 
 # Insert initial (seed) data
+places_table = DB.from(:places)
+
+places_table.insert(title: "Chicago", 
+                    description: "The Windy City",
+                    address: "Somewhere")
+
 recommendations_table = DB.from(:recommendations)
 
-recommendations_table.insert(title: "Bennisons", 
-                    description: "The best bakery in Evanston",
-                    address: "Somewhere")
+recommendations_table.insert(recommendations: "There are so many fun things to do in Chicago!")
 
 puts "Success!" 
