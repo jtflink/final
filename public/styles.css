@@ -1,0 +1,57 @@
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+.navbar {
+  background-color: #ffffff;
+}
+
+img {
+  height: 40px;
+}
+
+.jumbotron {
+  background-color: #173560;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.form {
+  font-size: 20px;
+  padding-left: 25%;
+  padding-right: 25%;
+}
+
+.weather {
+  background-color: #D2E1F2;
+}
+
+.news {
+  background-color: #D2E1F2;
+}
+
+.btn {
+  border-color: #173560;
+  color: #173560;
+}
+
+.btn:hover {
+  background-color: #173560;
+  border-color: #173560;
+  color: #ffffff;
+}
+
+.jumbotron button {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.jumbotron button:hover {
+  background-color: #4472C4;
+  border-color: #4472C4;
+  color: #ffffff;
+}

@@ -5,31 +5,30 @@ DB = Sequel.connect(connection_string)                                          
 #######################################################################################
 
 # Database schema - this should reflect your domain model
-DB.create_table! :events do
+DB.create_table! :places do
   primary_key :id
   String :title
   String :description, text: true
-  String :date
-  String :location
+  String :address
 end
-DB.create_table! :rsvps do
+DB.create_table! :recommendations do
   primary_key :id
-  foreign_key :event_id
-  Boolean :going
+  foreign_key :place_id
+  foreign_key :user_id
+  String :recommendations, text: true
+end
+DB.create_table! :users do
+  primary_key :id
   String :name
   String :email
-  String :comments, text: true
+  String :password
 end
 
 # Insert initial (seed) data
-events_table = DB.from(:events)
+recommendations_table = DB.from(:recommendations)
 
-events_table.insert(title: "Bacon Burger Taco Fest", 
-                    description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
-                    date: "June 21",
-                    location: "Kellogg Global Hub")
+recommendations_table.insert(title: "Bennisons", 
+                    description: "The best bakery in Evanston",
+                    address: "Somewhere")
 
-events_table.insert(title: "Kaleapolooza", 
-                    description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
-                    date: "July 4",
-                    location: "Nowhere")
+puts "Success!" 

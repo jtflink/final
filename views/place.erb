@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-sm-9">
+        <h1><%= @place[:title] %></h1>
+        <% for recommendation in @recommendations %>
+            <p><%= recommendation[:recommendations] %></p>
+        <% end %>   
+    </div>
+</div>
