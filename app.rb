@@ -34,8 +34,8 @@ get "/" do
 end
 
 post "/send_text" do
-    account_sid = "ACadb416e08816088128a59212765cc793"
-    auth_token = "a7dc93cf1e22a0d3fe2a791c1919ab7c"
+    account_sid = ENV["TWILIO_ACCOUNT_SID"]
+    auth_token = ENV["TWILIO_AUTH_TOKEN"]
 
     client = Twilio::REST::Client.new(account_sid, auth_token)
 
