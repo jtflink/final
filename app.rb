@@ -110,15 +110,6 @@ post "/places/:id/recommendations/create" do
     redirect "/places/#{@place[:id]}"
 end
 
-# display the recommendations form
-get "/recommendations/:id/edit" do
-    puts "params: #{params}"
-
-    @recommendation = recommendations_table.where(id: params["id"]).to_a[0]
-    @place = places_table.where(id: @recommendation[:place_id]).to_a[0]
-    view "edit_recommendation"
-end
-
 # delete the recommendation
 get "/recommendations/:id/destroy" do
     puts "params: #{params}"

@@ -5,7 +5,7 @@
             <% if @current_user %>
                 <a href="/places/<%= @place[:id] %>/recommendations/new" class="btn">Add a recommendation</a>
             <% else %>
-                <a href="/logins/new" class="btn">Please sign in to RSVP</a>
+                <a href="/logins/new" class="btn">Sign in to add a recommendation</a>
             <% end %>
         </p>
         <% for recommendation in @recommendations %>
