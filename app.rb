@@ -42,6 +42,10 @@ get "/places/:id" do
 
     @recommendations = recommendations_table.where(place_id: @place[:id]).to_a
 
+    @lat = rand(-90.0..90.0)
+    @long = rand(-180.0..180.0)
+    @lat_long = "#{@lat},#{@long}"
+
     view "place"
 end
 
@@ -51,6 +55,10 @@ get "/places/:id/recommendations/new" do
 
     @place = places_table.where(id: params[:id]).to_a[0]
     view "new_recommendation"
+end
+
+get "/new_place" do
+    view "new_place"
 end
 
 # receive the submitted recommendations form

@@ -26,13 +26,22 @@ end
 
 # Insert initial (seed) data
 places_table = DB.from(:places)
-
-places_table.insert(title: "Chicago", 
-                    description: "The Windy City",
-                    address: "Somewhere")
-
 recommendations_table = DB.from(:recommendations)
+users_table = DB.from(:users)
 
-recommendations_table.insert(recommendations: "There are so many fun things to do in Chicago!")
+places_table.insert(id: 0,
+                    title: "Chicago",
+                    description: "something",
+                    address: "address")
+
+recommendations_table.insert(id: 0,
+                    place_id: 0,
+                    user_id: 0,
+                    recommendations: "Such a great city!")
+
+users_table.insert(id: 0,
+                    name: "Jordan", 
+                    email: "test@test.com",
+                    password: "test")
 
 puts "Success!" 
