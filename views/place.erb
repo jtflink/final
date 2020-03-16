@@ -1,21 +1,21 @@
 <div class="row">
-    <div class="col-sm-9">
-        <h1><%= @place[:title] %></h1>
-        <iframe
-            width="600"
-            height="450"
-            frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
-          &q=<%= @lat_long %>&zoom=6" allowfullscreen>
-        </iframe>
+    <div class="col-sm-6">
+        <h3 class="mb-4">Recommendations for <%= @place[:title] %></h3>
+        <p class="mb-5">
+            <% if @current_user %>
+                <a href="/places/<%= @place[:id] %>/recommendations/new" class="btn">Add a recommendation</a>
+            <% else %>
+                <a href="/logins/new" class="btn">Please sign in to RSVP</a>
+            <% end %>
+        </p>
         <% for recommendation in @recommendations %>
-            <div class="media">
+            <div class="media mb-5">
                 <div class="media-body">
-                    <h5 class="mt-0">
-                        <%= @users_table.where(id: recommendation[:user_id]).to_a[0][:name] %>
+                    <h5 mb-4>
+                        Submitted by <%= @users_table.where(id: recommendation[:user_id]).to_a[0][:name] %>
                         <small>
                             <% if @current_user && @current_user[:id] == recommendation[:user_id] %>
-                                (<a href="/recommendations/<%= recommendation[:id] %>/edit">edit</a> | <a href="/recommendations/<%= recommendation[:id] %>/destroy">delete</a>)
+                                (<a href="/recommendations/<%= recommendation[:id] %>/destroy">remove</a>)
                             <% end %>
                         </small>
                     </h5>
@@ -23,12 +23,14 @@
                 </div>
             </div>
         <% end %>
-        <p class="mt-5">
-            <% if @current_user %>
-                <a href="/places/<%= @place[:id] %>/recommendations/new" class="btn btn-primary">Add a recommendation!</a>
-            <% else %>
-                <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
-            <% end %>
-        </p>
     </div>
+    <div class="col-sm-6 text-center">
+        <iframe
+            width="400"
+            height="400"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
+          &q=<%= @lat_long %>&zoom=6" allowfullscreen>
+        </iframe>
+    </div>    
 </div>

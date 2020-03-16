@@ -1,9 +1,0 @@
-<h1>Edit Recommendation For <%= @place[:title] %></h1>
-
-<form action="/places/<%= @place[:id] %>/recommendations/create" method="post">
-  <div class="form-group">
-    <label>Recommendations</label>
-    <textarea class="form-control" rows="3" name="recommendations"><%= @recommendation[:recommendations] %></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>

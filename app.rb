@@ -5,6 +5,7 @@ require "sequel"                                                                
 require "logger"                                                                      #
 require "twilio-ruby"                                                                 #
 require "bcrypt"                                                                      #
+require "geocoder"                                                                    #
 connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqlite3"  #
 DB ||= Sequel.connect(connection_string)                                              #
 DB.loggers << Logger.new($stdout) unless DB.loggers.size > 0                          #
@@ -41,12 +42,31 @@ get "/places/:id" do
     pp @place
 
     @recommendations = recommendations_table.where(place_id: @place[:id]).to_a
-
-    @lat = rand(-90.0..90.0)
-    @long = rand(-180.0..180.0)
-    @lat_long = "#{@lat},#{@long}"
+    
+    @lat_long = places_table.where(id: params[:id]).to_a[0][:lat_long]
 
     view "place"
+end
+
+# receive the submitted places form
+post "/places/create" do
+    puts "params: #{params}"
+
+    existing_place = places_table.where(title: params["place"]).to_a[0]
+    if existing_place
+        view "existing_place_error"
+    else
+        results = Geocoder.search(params["place"])
+        lat_long = results.first.coordinates
+        @lat_lng = "#{lat_long[0]},#{lat_long[1]}" 
+
+        places_table.insert(
+            title: params["place"],
+            lat_long: @lat_lng
+        )
+
+        redirect "/"
+    end
 end
 
 # display the recommendations form
@@ -82,24 +102,6 @@ get "/recommendations/:id/edit" do
     @recommendation = recommendations_table.where(id: params["id"]).to_a[0]
     @place = places_table.where(id: @recommendation[:place_id]).to_a[0]
     view "edit_recommendation"
-end
-
-# receive the submitted recommendation form
-post "/recommendations/:id/update" do
-    puts "params: #{params}"
-
-    @recommendation = recommendations_table.where(id: params["id"]).to_a[0]
-    @place = places_table.where(id: @recommendation[:place_id]).to_a[0]
-
-    if @current_user && @current_user[:id] == @recommendation[:id]
-        recommendations_table.where(id: params["id"]).update(
-            recommendations: params["recommendations"]
-        )
-
-        redirect "/places/#{@place[:id]}"
-    else
-        view "error"
-    end
 end
 
 # delete the recommendation
