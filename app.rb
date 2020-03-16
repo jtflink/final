@@ -33,6 +33,21 @@ get "/" do
     view "places"
 end
 
+post "/send_text" do
+    account_sid = "ACadb416e08816088128a59212765cc793"
+    auth_token = "a7dc93cf1e22a0d3fe2a791c1919ab7c"
+
+    client = Twilio::REST::Client.new(account_sid, auth_token)
+
+    client.messages.create(
+        from: "+12065392812", 
+        to: "+17134100878",
+        body: "This app is great!"
+    )
+
+    redirect "/"
+end 
+
 # place details
 get "/places/:id" do
     puts "params: #{params}"

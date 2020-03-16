@@ -16,3 +16,10 @@
         Recommendations for <a href="/places/<%= place[:id] %>"><%= place[:title] %></a>
     </h5>
 <% end %>
+
+<div class="mt-5">
+    <h3 class="mb-4">Let the TravelRecsApp team know you like this app!</h3>
+    <form action="/send_text" method="post">
+        <button type="submit" class="btn">Send text</button>
+    </form>
+</div>
