@@ -56,8 +56,8 @@ recommendations_table.insert(id: 2,
                     recommendations: "One of the best things to do in San Francisco is to visit Golden Gate Park.")
 
 users_table.insert(id: 0,
-                    name: "Jordan", 
-                    email: "test@test.com",
-                    password: "test")
+                    name: "user1", 
+                    email: "user1@user1.com",
+                    password: "user1")
 
 puts "Success!" 
